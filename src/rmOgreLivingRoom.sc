@@ -47,6 +47,7 @@
 			)
 		)
 		(gEgo init:)
+		(gGame handsOn:)
 	)
 
 	(method (doit)
