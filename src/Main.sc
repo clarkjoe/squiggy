@@ -116,7 +116,7 @@
 	gTickOffset             ; Something to do with time (ticks per frame?)
 	gGameTime
 	gNarrator               ; Default Narrator.
-	gMessageType =  $0001   ; Talker flags: 0x1 (text) and 0x2 (audio).
+	gMessageType =  $0003   ; Talker flags: 0x1 (text) and 0x2 (audio).
 	gMessager
 	gPrints
 	gWalkHandler
