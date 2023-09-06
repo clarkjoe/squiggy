@@ -544,7 +544,7 @@
 		(= gPolyphony (DoSound sndGET_POLYPHONY))
 		(= gMaxScore 5000)
 		(= gFont 1605)
-		(= gGEgoMoveSpeed 6)
+		(= gGEgoMoveSpeed 1)
 		(= gEatTheMice 30)
 		(= gTextReadSpeed 2)
 		(= gColorDepth (Graph grGET_COLOURS))
