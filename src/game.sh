@@ -52,3 +52,18 @@
 (define ICONINDEX_INVENTORY 6)
 (define ICONINDEX_SETTINGS 7)
 (define ICONINDEX_HELP 8)
+
+;;;;; Game specific definitions
+; room script numbers
+(define CABIN_ENTRANCE_SCRIPT 1701)
+(define CABIN_KITCHEN_SCRIPT 1702)
+(define CABIN_BEDROOM_SCRIPT 1703)
+(define CABIN_CLOSET_SCRIPT 1704)
+
+; helpful constants
+(define STILL_LOOP 8)
+(define STILL_DOWN_CEL 2)
+(define STILL_UP_CEL 3)
+(define STILL_RIGHT_CEL 0)
+(define STILL_LEFT_CEL 1)
+

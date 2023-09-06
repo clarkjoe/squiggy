@@ -1,5 +1,5 @@
 ;;; Sierra Script 1.0 - (do not remove this comment)
-(script# 1704)
+(script# CABIN_CLOSET_SCRIPT)
 (include sci.sh)
 (include game.sh)
 (include 1704.shm)
@@ -19,23 +19,21 @@
 (instance rm1704 of Room
 	(properties
 		picture scriptNumber
-		north 0
-		east 0
-		south 0
-		west 0
 		noun N_ROOM
 	)
 	
 	(method (init)
-		; Uncomment this line once one or more polygons have been defined in the picture editor.
-		; (gRoom addObstacle: (&getpoly ""))
+		(gRoom addObstacle: (&getpoly {}))
 		(super init:)
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
+			(CABIN_ENTRANCE_SCRIPT
+				(gEgo posn: 167 145 loop: STILL_LOOP cel: STILL_DOWN_CEL)
+			)
 			(else 
 				; Set up ego view and loop (direction)
 				(SetUpEgo -1 0)
-				(gEgo posn: 150 100)
+				(gEgo posn: 167 145)
 			)
 		)
 		(gEgo init:)
@@ -45,9 +43,12 @@
 (instance RoomScript of Script
 	(properties)
 	
-	(method (doit)
+	(method (doit &tmp egoOnControl)
 		(super doit:)
 		; code executed each game cycle
+		(= egoOnControl (gEgo onControl:))
+		
+		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
 	)
 	
 	(method (changeState newState)
