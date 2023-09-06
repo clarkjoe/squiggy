@@ -54,7 +54,7 @@
 		; code executed each game cycle
 		(= egoOnControl (gEgo onControl:))
 		
-		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
+;;;		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
 		(if (& ctlCYAN egoOnControl) (gRoom newRoom: CABIN_BEDROOM_SCRIPT))
 		(if (& ctlFUCHSIA egoOnControl) (gRoom newRoom: CABIN_KITCHEN_SCRIPT))
 	)
