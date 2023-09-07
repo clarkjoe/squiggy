@@ -147,6 +147,7 @@
 	[gFlags 14]                 ; Start of bit set. Room for 14 x 16 = 224 flags.
 	gEdgeDistance =  10         ; Margin around screen to make it easier to walk the ego to the edge.
 	gDebugOut
+	gKeyholePic
 )
 ;	
 ;	 Tests a boolean game flag.

@@ -30,13 +30,13 @@
 			(CABIN_ENTRANCE_SCRIPT
 				(gEgo posn: 167 145 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
-			(else 
-				; Set up ego view and loop (direction)
+			(else
 				(SetUpEgo -1 0)
 				(gEgo posn: 167 145)
 			)
 		)
 		(gEgo init:)
+		(keyhole init:)
 	)
 )
 
@@ -55,6 +55,34 @@
 		(= state newState)
 		(switch state
 			(0 ; Handle state changes
+			)
+		)
+	)
+)
+
+(instance keyhole of Feature
+	(properties
+		noun N_KEYHOLE
+		approachX 230
+		approachY 138
+	)
+
+	(method (init)
+		(self 
+			setOnMeCheck: omcCOLORS ctlNAVY
+			approachVerbs: V_LOOK
+		)
+		(super init: &rest)
+	)	
+	
+	
+	(method (doVerb theVerb)
+		(switch theVerb
+			(V_LOOK
+				(gRoom newRoom: CABIN_KEYHOLE_SCRIPT)
+			)
+			(else 
+				(super doVerb: theVerb &rest)
 			)
 		)
 	)

@@ -43,6 +43,7 @@
 			)
 		)
 		(gEgo init:)
+		(gGame handsOn:)
 	)
 )
 

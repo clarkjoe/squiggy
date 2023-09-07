@@ -94,7 +94,7 @@
 					)
 				)
 				(switch theChoice
-					(0 (gRoom newRoom: 110))
+					(0 (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
 					(1
 						(gGame restore:)
 						(self changeState: state)
