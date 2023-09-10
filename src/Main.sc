@@ -142,7 +142,7 @@
 	gColorWindowForeground
 	gColorWindowBackground
 	gLowlightColor
-	gDefaultEgoView =  0        ; The default view resource for the ego
+	gDefaultEgoView =  2        ; The default view resource for the ego
 	gRegister
 	[gFlags 14]                 ; Start of bit set. Room for 14 x 16 = 224 flags.
 	gEdgeDistance =  10         ; Margin around screen to make it easier to walk the ego to the edge.
@@ -248,7 +248,7 @@
 	)
 	(if (gEgo looper?) ((gEgo looper?) dispose:))
 	(gEgo
-		setStep: 5 2
+		setStep: 4 2
 		illegalBits: 0
 		ignoreActors: 0
 		setSpeed: gGEgoMoveSpeed
