@@ -23,7 +23,7 @@
 	)
 	
 	(method (init)
-		(gRoom addObstacle: (&getpoly {}))
+		(gRoom addObstacle: (&getpoly {contained}))
 		(super init:)
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
