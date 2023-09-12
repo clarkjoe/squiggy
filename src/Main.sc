@@ -142,7 +142,7 @@
 	gColorWindowForeground
 	gColorWindowBackground
 	gLowlightColor
-	gDefaultEgoView =  2        ; The default view resource for the ego
+	gDefaultEgoView =  ROSELLA_PEASANT_VIEW        ; The default view resource for the ego
 	gRegister
 	[gFlags 14]                 ; Start of bit set. Room for 14 x 16 = 224 flags.
 	gEdgeDistance =  10         ; Margin around screen to make it easier to walk the ego to the edge.
@@ -248,7 +248,7 @@
 	)
 	(if (gEgo looper?) ((gEgo looper?) dispose:))
 	(gEgo
-		setStep: 4 2
+		setStep: 3 2
 		illegalBits: 0
 		ignoreActors: 0
 		setSpeed: gGEgoMoveSpeed
@@ -540,12 +540,12 @@
 		(super init:)
 		(= gEgo ego)
 		(User alterEgo: gEgo canControl: 0 canInput: 0)
-		(= gMessageType $0001)
+		(= gMessageType $0003)
 		(= gUseSortedFeatures TRUE)
 		(= gPolyphony (DoSound sndGET_POLYPHONY))
 		(= gMaxScore 5000)
 		(= gFont 1605)
-		(= gGEgoMoveSpeed 1)
+		(= gGEgoMoveSpeed 5)
 		(= gEatTheMice 30)
 		(= gTextReadSpeed 2)
 		(= gColorDepth (Graph grGET_COLOURS))

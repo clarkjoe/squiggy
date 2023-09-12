@@ -64,6 +64,9 @@
 (define CABIN_KEYHOLE_PIC_OGRE 1707)
 (define CABIN_KEYHOLE_PIC_BOTH 1708)
 
+; views
+(define ROSELLA_PEASANT_VIEW 0)
+
 ; helpful constants
 (define STILL_LOOP 8)
 (define STILL_DOWN_CEL 2)

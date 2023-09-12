@@ -11,6 +11,7 @@
 (use Main)
 (use Polygon)
 (use System)
+(use Scaler)
 
 (public
 	rm1702 0
@@ -24,7 +25,6 @@
 	
 	(method (init)
 		(gRoom addObstacle: (&getpoly {contained}))
-		(gRoom addObstacle: (&getpoly {barrel}))
 		(super init:)
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
@@ -37,7 +37,10 @@
 				(gEgo posn: 156 153)
 			)
 		)
-		(gEgo init:)
+		(gEgo
+			init:
+			setScale: Scaler 75 75 150 120
+		)
 	)
 )
 

@@ -5,6 +5,7 @@
 (use PolyPath)
 (use Cycle)
 (use Actor)
+(use StopWalk)
 
 
 ;	
@@ -77,7 +78,7 @@
 	
 	(method (init)
 		(super init:)
-		(if (not cycler) (self setCycle: Walk))
+		(if (not cycler) (self setCycle: StopWalk -1))
 	)
 	
 	(method (doit)

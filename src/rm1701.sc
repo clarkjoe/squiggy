@@ -11,6 +11,9 @@
 (use Main)
 (use Polygon)
 (use System)
+(use Scaler)
+(use StopWalk)
+(use Wander)
 
 (public
 	rm1701 0
@@ -43,7 +46,11 @@
 				(gEgo posn: 44 145)
 			)
 		)
-		(gEgo init:)
+		(gEgo
+			init:
+			setScale: Scaler 75 75 150 120
+		)
+
 		(gGame handsOn:)
 	)
 )
