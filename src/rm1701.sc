@@ -30,19 +30,18 @@
 		(gRoom addObstacle: (&getpoly {globe}))
 		(super init:)
 		(self setScript: RoomScript)
+		(SetUpEgo -1 0)
 		(switch gPreviousRoomNumber
 			(CABIN_KITCHEN_SCRIPT
 				(gEgo posn: 259 130 loop: STILL_LOOP cel: STILL_LEFT_CEL)
 			)
 			(CABIN_BEDROOM_SCRIPT
-				(gEgo posn: 98 103 loop: STILL_LOOP cel: STILL_LEFT_CEL)
+				(gEgo posn: 188 42 loop: STILL_LOOP cel: STILL_LEFT_CEL)
 			)
 			(CABIN_CLOSET_SCRIPT
 				(gEgo posn: 204 143 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
-			(else 
-				; Set up ego view and loop (direction)
-				(SetUpEgo -1 0)
+			(else
 				(gEgo posn: 44 145)
 			)
 		)

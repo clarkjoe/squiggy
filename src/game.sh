@@ -66,6 +66,7 @@
 
 ; views
 (define ROSELLA_PEASANT_VIEW 0)
+(define ROSELLA_PEASANT_DESCEND_ASCEND_VIEW 1)
 
 ; helpful constants
 (define STILL_LOOP 8)

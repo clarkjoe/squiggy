@@ -11,6 +11,8 @@
 (use Main)
 (use Polygon)
 (use System)
+(use PolyPath)
+(use Scaler)
 
 (public
 	rm1703 0
@@ -25,18 +27,12 @@
 	(method (init)
 		(gRoom addObstacle: (&getpoly {contained}))
 		(super init:)
-		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
-			(CABIN_ENTRANCE_SCRIPT
-				(gEgo posn: 152 136 loop: STILL_LOOP cel: STILL_RIGHT_CEL)
-			)
-			(else 
-				; Set up ego view and loop (direction)
+			(else
 				(SetUpEgo -1 0)
-				(gEgo posn: 131 168)
+				(self setScript: entrance)
 			)
 		)
-		(gEgo init:)
 	)
 )
 
@@ -45,16 +41,47 @@
 	
 	(method (doit &tmp egoOnControl)
 		(super doit:)
-		; code executed each game cycle
+		
 		(= egoOnControl (gEgo onControl:))
 		
-		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
+		(if (& ctlLIME egoOnControl) (rm1703 setScript: exit))
 	)
+)
+
+(instance entrance of Script
+	(properties)
 	
 	(method (changeState newState)
 		(= state newState)
 		(switch state
-			(0 ; Handle state changes
+			(0
+				(gGame handsOff:)
+				(gEgo init: setScale: Scaler 75 75 0 1)
+				(gEgo posn: 81 134 view: ROSELLA_PEASANT_DESCEND_ASCEND_VIEW setLoop: 4 setCel: 0)
+				(gEgo setMotion: PolyPath 120 134 self)
+			)
+			(1
+				(gGame handsOn:)
+				(gEgo view: ROSELLA_PEASANT_VIEW)
+				(rm1703 setScript: RoomScript)
+			)
+		)
+	)
+)
+
+(instance exit of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
+		(switch state
+			(0
+				(gGame handsOff:)
+				(gEgo view: ROSELLA_PEASANT_DESCEND_ASCEND_VIEW setLoop: 1 setCel: 0)
+				(gEgo setMotion: PolyPath 80 134 self)
+			)
+			(1
+				(gGame newRoom: CABIN_ENTRANCE_SCRIPT)
 			)
 		)
 	)
