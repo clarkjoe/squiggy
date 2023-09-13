@@ -2,10 +2,14 @@
 ;;; 1705.shm -- Produced by SCI Companion
 ;;; This file should only be edited with the SCI Companion message editor
 
-;;; CASES
-
-
 ;;; NOUNS
 
 (define N_ROOM 1)
+
+;;; CASES
+
+(define C_EMPTY 1)
+(define C_OGRE 2)
+(define C_OGRE_HEN 3)
+(define C_OGRE_SLEEP 4)
 

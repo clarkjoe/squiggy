@@ -26,7 +26,7 @@
 	(method (init)
 		(gRoom addObstacle: (&getpoly {contained}))
 		(super init:)
-		(self setScript: RoomScript)
+		(self setScript: entrance)
 		(switch gPreviousRoomNumber
 			(else
 				(SetUpEgo -1 0)
@@ -43,7 +43,7 @@
 	
 	(method (doit &tmp egoOnControl)
 		(super doit:)
-		; code executed each game cycle
+
 		(= egoOnControl (gEgo onControl:))
 		
 		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
@@ -51,8 +51,42 @@
 	
 	(method (changeState newState)
 		(= state newState)
+		(= gCabinKeyholeState newState)
+		(switch gCabinKeyholeState
+			(0
+				(cond
+					((== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
+						(self changeState: 3)
+					)
+					(else
+						(self cue:)
+					)
+				)
+			)
+			(1
+				(= seconds 5)
+			)
+			(2
+				(= gKeyholePic CABIN_KEYHOLE_PIC_OGRE)
+				(gMessager say: N_ROOM 0 C_OGRE_ENTERS 0)
+			)
+			(3
+			)
+		)
+	)
+)
+
+(instance entrance of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
 		(switch state
-			(0 ; Handle state changes
+			(0
+				(= seconds 5)
+			)
+			(1
+				(rm1704 setScript: RoomScript)
 			)
 		)
 	)
@@ -61,8 +95,8 @@
 (instance keyhole of Feature
 	(properties
 		noun N_KEYHOLE
-		approachX 230
-		approachY 138
+		approachX 200
+		approachY 134
 	)
 
 	(method (init)
