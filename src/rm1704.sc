@@ -79,6 +79,14 @@
 (instance entrance of Script
 	(properties)
 	
+	(method (doit &tmp egoOnControl)
+		(super doit:)
+
+		(= egoOnControl (gEgo onControl:))
+		
+		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
+	)
+	
 	(method (changeState newState)
 		(= state newState)
 		(switch state

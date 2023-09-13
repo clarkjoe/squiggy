@@ -40,16 +40,17 @@
 			)
 			(CABIN_CLOSET_SCRIPT
 				(self setScript: RoomScript)
-				(gEgo posn: 204 143 loop: STILL_LOOP cel: STILL_DOWN_CEL)
+				(gEgo posn: 204 121 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
 			(else
 				(self setScript: RoomScript)
 				(gEgo posn: 44 145)
 			)
 		)
-		(gEgo
-			init:
-			setScale: Scaler 75 75 150 120
+		(gEgo init: setScale: Scaler 85 85 150 120)
+		
+		(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
+			(ogre init: setMotion: Forward setSpeed: 60)
 		)
 
 		(gGame handsOn:)
@@ -61,7 +62,6 @@
 	
 	(method (doit &tmp egoOnControl)
 		(super doit:)
-		; code executed each game cycle
 		(= egoOnControl (gEgo onControl:))
 		
 		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
@@ -112,5 +112,15 @@
 				(gRoom newRoom: CABIN_BEDROOM_SCRIPT)
 			)
 		)
+	)
+)
+
+(instance ogre of Actor
+	(properties
+		view OGRE_SLEEPING_VIEW
+		x 242
+		y 170
+		signal ignAct
+		noun N_OGRE
 	)
 )

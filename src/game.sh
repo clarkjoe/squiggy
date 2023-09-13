@@ -69,6 +69,8 @@
 (define ROSELLA_PEASANT_VIEW 0)
 (define ROSELLA_PEASANT_DESCEND_ASCEND_VIEW 1)
 
+(define OGRE_SLEEPING_VIEW 321)
+
 ; helpful constants
 (define STILL_LOOP 8)
 (define STILL_DOWN_CEL 2)
