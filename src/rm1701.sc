@@ -64,15 +64,36 @@
 		(super doit:)
 		(= egoOnControl (gEgo onControl:))
 		
-		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
-		(if (& ctlCYAN egoOnControl) (rm1701 setScript: exitToBedroom))
-		(if (& ctlFUCHSIA egoOnControl) (gRoom newRoom: CABIN_KITCHEN_SCRIPT))
+		(cond
+			((& ctlLIME egoOnControl)
+				(gRoom newRoom: CABIN_CLOSET_SCRIPT)
+			)
+			((& ctlCYAN egoOnControl)
+				(rm1701 setScript: exitToBedroom)
+			)
+			((& ctlFUCHSIA egoOnControl)
+				(gRoom newRoom: CABIN_KITCHEN_SCRIPT)
+			)
+			((& ctlNAVY egoOnControl)
+				(if (< (gEgo heading:) 200)
+					(gEgo setLoop: 0)
+				else
+					(gEgo setLoop: 1)
+				)
+;;;				(DebugPrint {heading: %d} (gEgo heading:))
+;;;				(gEgo setLoop: 0)
+			)
+		)
+		
+;;;		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
+;;;		(if (& ctlCYAN egoOnControl) (rm1701 setScript: exitToBedroom))
+;;;		(if (& ctlFUCHSIA egoOnControl) (gRoom newRoom: CABIN_KITCHEN_SCRIPT))
 	)
 	
 	(method (changeState newState)
 		(= state newState)
 		(switch state
-			(0 ; Handle state changes
+			(0
 			)
 		)
 	)
