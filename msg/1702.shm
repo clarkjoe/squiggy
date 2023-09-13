@@ -8,4 +8,5 @@
 ;;; NOUNS
 
 (define N_ROOM 1)
+(define N_OGRESS 2)
 

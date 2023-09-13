@@ -12,6 +12,10 @@
 (use Polygon)
 (use System)
 (use Scaler)
+(use ScaleTo)
+(use StopWalk)
+(use PolyPath)
+(use PChase)
 
 (public
 	rm1702 0
@@ -29,19 +33,12 @@
 		(self setScript: RoomScript)
 		(SetUpEgo -1 0)
 		(switch gPreviousRoomNumber
-			(CABIN_ENTRANCE_SCRIPT
-				(gEgo posn: 67 154 loop: STILL_LOOP cel: STILL_RIGHT_CEL)
-			)
-			(else 
-				; Set up ego view and loop (direction)
-				(SetUpEgo -1 0)
-				(gEgo posn: 156 153)
+			(else
+				(gEgo posn: 67 154 setHeading: 90)
 			)
 		)
-		(gEgo
-			init:
-			setScale: Scaler 75 75 150 120
-		)
+		(gEgo init: setScale: Scaler 100 100 0 1)
+		(ogress init: setScale: Scaler 225 225 0 1 setCycle: StopWalk -1)
 	)
 )
 
@@ -50,8 +47,19 @@
 	
 	(method (doit &tmp egoOnControl)
 		(super doit:)
-		; code executed each game cycle
+		
 		(= egoOnControl (gEgo onControl:))
+		
+		(if (and
+				(or
+					(== (self state:) 1)
+					(== (self state:) 3)
+				)
+				(== (& ctlNAVY egoOnControl) FALSE)
+			)
+			
+			(rm1702 setScript: ogressGrabsRosella)
+		)
 		
 		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
 	)
@@ -59,8 +67,55 @@
 	(method (changeState newState)
 		(= state newState)
 		(switch state
-			(0 ; Handle state changes
+			(0
+				(= seconds 6)
+			)
+			(1
+				(ogress setMotion: PolyPath 159 124 self)
+			)
+			(2
+				(= seconds 3)
+			)
+			(3
+				(ogress setMotion: PolyPath 185 152 self)
+			)
+			(4
+				(ogress setHeading: 90)
+				(self cue:)
+			)
+			(5
+				(self changeState: 0)
 			)
 		)
+	)
+)
+
+(instance ogressGrabsRosella of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
+		(switch state
+			(0
+				(gGame handsOff:)
+				(self cue:)
+			)
+			(1
+				(ogress setMotion: PChase gEgo 50 self)
+			)
+			(2
+				(DebugPrint {DEATH})
+			)
+		)
+	)
+)
+
+(instance ogress of Actor
+	(properties
+		view GENESTA_VIEW
+		x 185
+		y 152
+		signal ignAct
+		noun N_OGRESS
 	)
 )
