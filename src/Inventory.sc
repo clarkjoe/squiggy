@@ -55,6 +55,10 @@
 		(self
 			; Add inventory items here.
 			; add: Money AThing AnotherThing
+			add: hen
+			add: bone
+			add: axe
+			add: cabinKey
 			eachElementDo: #lowlightColor 2
 			add: invLook invSelect invHelp invUp invDown ok
 		)
@@ -206,4 +210,40 @@
 		noun N_SELECTICON
 		helpVerb V_HELP
 	)
+)
+
+(instance hen of InventoryItem
+    (properties
+        view 900        ; This is our box view, we'll re-use it
+        loop 0
+        signal $0002
+        noun N_HEN
+    )
+)
+
+(instance bone of InventoryItem
+    (properties
+        view 900        ; This is our box view, we'll re-use it
+        loop 0
+        signal $0002
+        noun N_BONE
+    )
+)
+
+(instance axe of InventoryItem
+    (properties
+        view 900        ; This is our box view, we'll re-use it
+        loop 0
+        signal $0002
+        noun N_AXE
+    )
+)
+
+(instance cabinKey of InventoryItem
+    (properties
+        view 900        ; This is our box view, we'll re-use it
+        loop 0
+        signal $0002
+        noun N_CABIN_KEY
+    )
 )

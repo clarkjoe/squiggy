@@ -1,9 +1,12 @@
-;;; Sierra Script 1.0 - (do not remove this comment)
-; 15.shm -- Produced by SCI Companion
+;;; Sierra Script
+;;; 15.shm -- Produced by SCI Companion
+;;; This file should only be edited with the SCI Companion message editor
 
-; This file should only be edited with the SCI Companion message editor
-; CASES
-; NOUNS
+;;; CASES
+
+
+;;; NOUNS
+
 (define N_DOWNICON 11)
 (define N_DOICON 12)
 (define N_13 13)
@@ -12,3 +15,8 @@
 (define N_CLOSEBUTTON 16)
 (define N_SELECTICON 17)
 (define N_UPICON 18)
+(define N_HEN 1)
+(define N_BONE 2)
+(define N_AXE 3)
+(define N_CABIN_KEY 4)
+

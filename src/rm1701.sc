@@ -30,6 +30,7 @@
 		(gRoom addObstacle: (&getpoly {globe}))
 		(super init:)
 		(SetUpEgo -1 0)
+		(= gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
 		(switch gPreviousRoomNumber
 			(CABIN_KITCHEN_SCRIPT
 				(self setScript: RoomScript)
@@ -48,11 +49,7 @@
 			)
 		)
 		(gEgo init: setScale: Scaler 85 85 150 120)
-		
-		(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
-			(ogre init: setMotion: Forward setSpeed: 60)
-		)
-
+		(gEgo get: INV_BONE)
 		(gGame handsOn:)
 	)
 )
@@ -75,25 +72,47 @@
 				(gRoom newRoom: CABIN_KITCHEN_SCRIPT)
 			)
 			((& ctlNAVY egoOnControl)
-				(if (< (gEgo heading:) 200)
+				(if (< (gEgo heading:) 180)
 					(gEgo setLoop: 0)
 				else
 					(gEgo setLoop: 1)
 				)
-;;;				(DebugPrint {heading: %d} (gEgo heading:))
-;;;				(gEgo setLoop: 0)
 			)
 		)
-		
-;;;		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_CLOSET_SCRIPT))
-;;;		(if (& ctlCYAN egoOnControl) (rm1701 setScript: exitToBedroom))
-;;;		(if (& ctlFUCHSIA egoOnControl) (gRoom newRoom: CABIN_KITCHEN_SCRIPT))
 	)
 	
 	(method (changeState newState)
 		(= state newState)
+		(DebugPrint {room script state: %d} state)
 		(switch state
 			(0
+				(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP) (self cue:))
+			)
+			(1
+				(hen posn: 291 123 init: setPri: 15)
+				(ogre init: setMotion: Forward setSpeed: 60)
+				(self cue:)
+			)
+			(2
+				(if (not (gEgo has: INV_HEN)) (self cue:))
+			)
+			(3
+				(= seconds 5)
+			)
+			(4
+				(hen setMotion: MoveTo 252 123 self)
+			)
+			(5
+				(= seconds 5)
+			)
+			(6
+				(hen setMotion: MoveTo 291 123 self)
+			)
+			(7
+				(= seconds 5)
+			)
+			(8
+				(self changeState: 4)
 			)
 		)
 	)
@@ -145,3 +164,59 @@
 		noun N_OGRE
 	)
 )
+
+(instance hen of Actor
+	(properties
+		view 900
+		signal ignAct
+		loop 0
+		cel 0
+		noun N_HEN
+	)
+	
+	(method (doVerb theVerb)
+	    (switch theVerb
+	        (V_DO
+	        	(rm1701 setScript: getHen)
+	        )
+	        (else
+	            (super doVerb: theVerb &rest)
+	        )
+	    )
+	)
+)
+
+(instance getHen of Script
+	(properties)
+
+	(method (doit)
+		(super doit:)
+	)
+	
+	(method (changeState newState)
+		(= state newState)
+		(switch state
+			(0
+				(gGame handsOff:)
+				(hen setMotion: NULL)
+				(self cue:)
+			)
+			(1
+				(gEgo setMotion: PolyPath 235 180 self)
+			)
+			(2
+				(gEgo setHeading: 90)
+				(self cue:)
+			)
+			(3
+				(hen dispose:)
+				(gEgo get: INV_HEN)
+				(gGame handsOn:)
+				(rm1701 setScript: RoomScript)
+			)
+		)
+	)
+)
+
+
+

@@ -9,4 +9,5 @@
 
 (define N_ROOM 1)
 (define N_OGRE 2)
+(define N_HEN 3)
 

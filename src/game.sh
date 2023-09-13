@@ -73,6 +73,12 @@
 
 (define OGRE_SLEEPING_VIEW 321)
 
+; inventory items
+(define INV_HEN 0)
+(define INV_BONE 1)
+(define INV_AXE 2)
+(define INV_CABIN_KEY 3)
+
 ; helpful constants
 (define STILL_LOOP 8)
 (define STILL_DOWN_CEL 2)
