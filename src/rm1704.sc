@@ -11,6 +11,7 @@
 (use Main)
 (use Polygon)
 (use System)
+(use Scaler)
 
 (public
 	rm1704 0
@@ -27,15 +28,12 @@
 		(super init:)
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
-			(CABIN_ENTRANCE_SCRIPT
-				(gEgo posn: 167 145 loop: STILL_LOOP cel: STILL_DOWN_CEL)
-			)
 			(else
 				(SetUpEgo -1 0)
-				(gEgo posn: 167 145)
+				(gEgo posn: 167 145 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
 		)
-		(gEgo init:)
+		(gEgo init: setScale: Scaler 100 100 0 1)
 		(keyhole init:)
 	)
 )

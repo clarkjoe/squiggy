@@ -27,6 +27,7 @@
 		(gRoom addObstacle: (&getpoly {contained}))
 		(super init:)
 		(self setScript: RoomScript)
+		(SetUpEgo -1 0)
 		(switch gPreviousRoomNumber
 			(CABIN_ENTRANCE_SCRIPT
 				(gEgo posn: 67 154 loop: STILL_LOOP cel: STILL_RIGHT_CEL)
