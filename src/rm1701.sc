@@ -81,38 +81,33 @@
 		)
 	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp nextHenX nextHenY)
 		(= state newState)
+		(= nextHenX (Random 72 168))
+		(= nextHenY (Random 144 166))
 		(DebugPrint {room script state: %d} state)
 		(switch state
 			(0
 				(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP) (self cue:))
 			)
 			(1
-				(hen posn: 291 123 init: setPri: 15)
 				(ogre init: setMotion: Forward setSpeed: 60)
 				(self cue:)
 			)
 			(2
-				(if (not (gEgo has: INV_HEN)) (self cue:))
+				(if (not (gEgo has: INV_HEN)) 
+					(hen posn: 87 159 init: ignoreActors: FALSE)
+					(self cue:)
+				)
 			)
 			(3
-				(= seconds 5)
+				(hen setMotion: PolyPath nextHenX nextHenY self)
 			)
 			(4
-				(hen setMotion: MoveTo 252 123 self)
+				(= seconds 1)
 			)
 			(5
-				(= seconds 5)
-			)
-			(6
-				(hen setMotion: MoveTo 291 123 self)
-			)
-			(7
-				(= seconds 5)
-			)
-			(8
-				(self changeState: 4)
+				(self changeState: 3)
 			)
 		)
 	)
@@ -202,10 +197,10 @@
 				(self cue:)
 			)
 			(1
-				(gEgo setMotion: PolyPath 235 180 self)
+				(gEgo setMotion: PolyPath (+ (hen x?) 10) (+ (hen y?) 20) self)
 			)
 			(2
-				(gEgo setHeading: 90)
+				(gEgo setHeading: 0)
 				(self cue:)
 			)
 			(3

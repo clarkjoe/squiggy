@@ -30,6 +30,9 @@
 		(switch gPreviousRoomNumber
 			(else
 				(SetUpEgo -1 0)
+				(if (not (gEgo has: INV_AXE)) 
+					(axe init: approachVerbs: V_DO)
+				)
 				(self setScript: entrance)
 			)
 		)
@@ -86,3 +89,48 @@
 		)
 	)
 )
+
+(instance axe of Prop
+	(properties
+		view 900
+		x 65
+		y 148
+		approachX 65
+		approachY 158
+		signal ignAct
+		loop 0
+		cel 0
+		noun N_AXE
+		priority -1
+	)
+
+	(method (doVerb theVerb)
+		(switch theVerb
+			(V_DO
+				(rm1703 setScript: getAxe)
+			)
+			(else 
+				(super doVerb: theVerb &rest)
+			)
+		)
+	)
+)
+
+(instance getAxe of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
+		(switch state
+			(
+				(gEgo get: INV_AXE)
+				(axe dispose:)
+				(self cue:)
+			)
+			(
+				(rm1703 setScript: RoomScript)
+			)
+		)
+	)
+)
+
