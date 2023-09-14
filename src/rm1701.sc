@@ -96,7 +96,7 @@
 			)
 			(2
 				(if (not (gEgo has: INV_HEN)) 
-					(hen posn: 87 159 init: ignoreActors: FALSE)
+					(hen posn: 87 159 init: ignoreActors: FALSE setSpeed: 3 setCycle: StopWalk -1)
 					(self cue:)
 				)
 			)
@@ -162,7 +162,7 @@
 
 (instance hen of Actor
 	(properties
-		view 900
+		view HEN_VIEW
 		signal ignAct
 		loop 0
 		cel 0
@@ -172,7 +172,11 @@
 	(method (doVerb theVerb)
 	    (switch theVerb
 	        (V_DO
-	        	(rm1701 setScript: getHen)
+				(if (<= (self distanceTo: gEgo) 15)
+					(rm1701 setScript: getHen)
+				else
+					(gMessager say: N_ROOM 0 C_NOT_CLOSE_HEN 0)
+				)
 	        )
 	        (else
 	            (super doVerb: theVerb &rest)
@@ -197,10 +201,11 @@
 				(self cue:)
 			)
 			(1
-				(gEgo setMotion: PolyPath (+ (hen x?) 10) (+ (hen y?) 20) self)
+				(self cue:)
+;;;				(gEgo setMotion: PolyPath (+ (hen x?) 5) (+ (hen y?) 10) self)
 			)
 			(2
-				(gEgo setHeading: 0)
+;;;				(gEgo setHeading: 0)
 				(self cue:)
 			)
 			(3

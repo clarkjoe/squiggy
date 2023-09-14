@@ -4,6 +4,7 @@
 
 ;;; CASES
 
+(define C_NOT_CLOSE_HEN 1)
 
 ;;; NOUNS
 

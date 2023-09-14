@@ -72,6 +72,11 @@
 (define GENESTA_VIEW 240)
 
 (define OGRE_SLEEPING_VIEW 321)
+(define OGRE_EAT_ROSELLA_VIEW_A 322)
+(define OGRE_EAT_ROSELLA_VIEW_B 323)
+(define OGRE_EAT_ROSELLA_VIEW_C 324)
+
+(define HEN_VIEW 470)
 
 ; inventory items
 (define INV_HEN 0)
