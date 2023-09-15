@@ -93,7 +93,7 @@
 				(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP) (self cue:))
 			)
 			(1
-				(ogre init: setMotion: Forward setSpeed: 60)
+				(ogre init: setCycle: Forward setSpeed: 60)
 				(self cue:)
 			)
 			(2
@@ -189,39 +189,47 @@
 
 (instance getHen of Script
 	(properties)
-
-	(method (doit)
-		(super doit:)
-	)
 	
-	(method (changeState newState)
+	(method (changeState newState &tmp newSpeed)
 		(= state newState)
-		(DebugPrint {getHen state: %d} state)
-		(switch state
-			(0
+		(switchto state
+			(
 				(gGame handsOff:)
 				(hen setMotion: NULL)
 				(self cue:)
 			)
-			(1
-				(gEgo view: ROSELLA_PEASANT_PICKUP_VIEW setLoop: 0 setCel: 0)
+			(
+				(= newSpeed gGEgoMoveSpeed)
+				(gEgo view: ROSELLA_PEASANT_PICKUP_VIEW setCel: 0 setSpeed: (+ gGEgoMoveSpeed 2))
+				(if (<= (gEgo x?) (hen x?))
+					(gEgo setLoop: 0)
+				else
+					(gEgo setLoop: 2)
+				)
 				(self cue:)
 			)
-			(2
+			(
 				(gEgo setCycle: EndLoop self)
 			)
-			(3
+			(
 				(hen dispose:)
-				(gEgo get: INV_HEN)
-				(gEgo setLoop: 1 setCel: 0)
+				(gEgo get: INV_HEN setCel: 0 setLoop: (+ (gEgo loop?) 1))
 				(self cue:)
 			)
-			(4
+			(
 				(gEgo setCycle: EndLoop self)
 			)
-			(5
+			(
+				(gEgo view: ROSELLA_PEASANT_VIEW setSpeed: (- gGEgoMoveSpeed 2))
+				(self cue:)
+			)
+			(
+				(SetUpEgo -1 2)
+				(gEgo init:)
+				(self cue:)
+			)
+			(
 				(gGame handsOn:)
-				(gEgo view: ROSELLA_PEASANT_VIEW setCycle: StopWalk -1)
 				(rm1701 setScript: RoomScript)
 			)
 		)
@@ -231,57 +239,48 @@
 (instance ogreEatsRosella of Script
 	(properties)
 	
-	
-
-	(method (doit)
-		(super doit:)
-		(DebugPrint {ogreEatsRosella state: %d} (self state?))
-		(DebugPrint {ogre cel: %d} (ogre cel?))
-	)
-	
 	(method (changeState newState)
 		(= state newState)
-		(DebugPrint {ogreEatsRosella state: %d} state)
-		(switch state
-			(0
+		(switchto state
+			(
 				(gEgo setMotion: NULL)
 				(self cue:)
 			)
-			(1
+			(
 				(gMessager say: N_ROOM 0 C_OGRE_EAT 0 self)
 			)
-			(2
+			(
 				(gGame handsOff:)
 				(gEgo hide:)
 				(self cue:)
 			)
-			(3
-				(ogre posn: 200 175 view: OGRE_EAT_ROSELLA_VIEW_A setSpeed: 30 setCel: 0 setLoop: 0)
+			(
+				(ogre posn: 200 175 view: OGRE_EAT_ROSELLA_VIEW_A setCel: 0 setLoop: 0 setSpeed: (+ gGEgoMoveSpeed 2))
 				(ogre setCycle: EndLoop self)
 			)
-			(4
+			(
 				(ogre view: OGRE_EAT_ROSELLA_VIEW_B setCel: 0 setLoop: 0)
 				(ogre setCycle: EndLoop self)
 			)
-			(5
+			(
 				(ogre view: OGRE_EAT_ROSELLA_VIEW_C setCel: 0 setLoop: 0)
 				(ogre setCycle: EndLoop self)
 			)
-			(6
+			(
 				(ogre view: OGRE_EAT_ROSELLA_VIEW_D setCel: 0 setLoop: 0)
 				(ogre setCycle: EndLoop self)
 			)
-			(7
+			(
 				(ogre view: OGRE_EAT_ROSELLA_VIEW_E setCel: 0 setLoop: 0)
 				(ogre setCycle: EndLoop self)
 			)
-			(8
+			(
 				(ogre view: OGRE_EAT_ROSELLA_VIEW_F setCel: 0 setLoop: 0)
 				(ogre setCycle: EndLoop self)
 			)
-			(9
+			(
 				(ogre setCycle: NULL)
-				(DebugPrint {END})
+				(gGame newRoom: DEATH_SCRIPT)
 			)
 		)
 	)
