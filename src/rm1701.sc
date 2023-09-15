@@ -78,6 +78,9 @@
 					(gEgo setLoop: 1)
 				)
 			)
+			((& ctlGREEN egoOnControl)
+				(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP) (rm1701 setScript: ogreEatsRosella))
+			)
 		)
 	)
 	
@@ -85,7 +88,6 @@
 		(= state newState)
 		(= nextHenX (Random 72 168))
 		(= nextHenY (Random 144 166))
-		(DebugPrint {room script state: %d} state)
 		(switch state
 			(0
 				(if (== gKeyholePic CABIN_KEYHOLE_PIC_SLEEP) (self cue:))
@@ -194,6 +196,7 @@
 	
 	(method (changeState newState)
 		(= state newState)
+		(DebugPrint {getHen state: %d} state)
 		(switch state
 			(0
 				(gGame handsOff:)
@@ -201,22 +204,89 @@
 				(self cue:)
 			)
 			(1
+				(gEgo view: ROSELLA_PEASANT_PICKUP_VIEW setLoop: 0 setCel: 0)
 				(self cue:)
-;;;				(gEgo setMotion: PolyPath (+ (hen x?) 5) (+ (hen y?) 10) self)
 			)
 			(2
-;;;				(gEgo setHeading: 0)
-				(self cue:)
+				(gEgo setCycle: EndLoop self)
 			)
 			(3
 				(hen dispose:)
 				(gEgo get: INV_HEN)
+				(gEgo setLoop: 1 setCel: 0)
+				(self cue:)
+			)
+			(4
+				(gEgo setCycle: EndLoop self)
+			)
+			(5
 				(gGame handsOn:)
+				(gEgo view: ROSELLA_PEASANT_VIEW setCycle: StopWalk -1)
 				(rm1701 setScript: RoomScript)
 			)
 		)
 	)
 )
+
+(instance ogreEatsRosella of Script
+	(properties)
+	
+	
+
+	(method (doit)
+		(super doit:)
+		(DebugPrint {ogreEatsRosella state: %d} (self state?))
+		(DebugPrint {ogre cel: %d} (ogre cel?))
+	)
+	
+	(method (changeState newState)
+		(= state newState)
+		(DebugPrint {ogreEatsRosella state: %d} state)
+		(switch state
+			(0
+				(gEgo setMotion: NULL)
+				(self cue:)
+			)
+			(1
+				(gMessager say: N_ROOM 0 C_OGRE_EAT 0 self)
+			)
+			(2
+				(gGame handsOff:)
+				(gEgo hide:)
+				(self cue:)
+			)
+			(3
+				(ogre posn: 200 175 view: OGRE_EAT_ROSELLA_VIEW_A setSpeed: 30 setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(4
+				(ogre view: OGRE_EAT_ROSELLA_VIEW_B setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(5
+				(ogre view: OGRE_EAT_ROSELLA_VIEW_C setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(6
+				(ogre view: OGRE_EAT_ROSELLA_VIEW_D setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(7
+				(ogre view: OGRE_EAT_ROSELLA_VIEW_E setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(8
+				(ogre view: OGRE_EAT_ROSELLA_VIEW_F setCel: 0 setLoop: 0)
+				(ogre setCycle: EndLoop self)
+			)
+			(9
+				(ogre setCycle: NULL)
+				(DebugPrint {END})
+			)
+		)
+	)
+)
+
 
 
 
