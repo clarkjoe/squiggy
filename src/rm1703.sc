@@ -37,6 +37,7 @@
 			)
 		)
 		(window setOnMeCheck: omcCOLORS ctlPURPLE init:)
+		(shelf setOnMeCheck: omcCOLORS ctlNAVY init:)
 	)
 )
 
@@ -138,5 +139,11 @@
 (instance window of Feature
 	(properties
 		noun N_WINDOW
+	)
+)
+
+(instance shelf of Feature
+	(properties
+		noun N_SHELF
 	)
 )
