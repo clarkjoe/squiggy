@@ -36,6 +36,7 @@
 				(self setScript: entrance)
 			)
 		)
+		(window setOnMeCheck: omcCOLORS ctlPURPLE init:)
 	)
 )
 
@@ -134,3 +135,8 @@
 	)
 )
 
+(instance window of Feature
+	(properties
+		noun N_WINDOW
+	)
+)
