@@ -30,7 +30,7 @@
 		(gRoom addObstacle: (&getpoly {globe}))
 		(super init:)
 		(SetUpEgo -1 0)
-		(= gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
+;;;		(= gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
 		(switch gPreviousRoomNumber
 			(CABIN_KITCHEN_SCRIPT
 				(self setScript: RoomScript)
@@ -48,6 +48,7 @@
 				(gEgo posn: 44 145)
 			)
 		)
+		(bulldog init: ignoreActors: FALSE setCycle: Forward)
 		(gEgo init: setScale: Scaler 85 85 150 120)
 		(gEgo get: INV_BONE)
 		(gGame handsOn:)
@@ -285,6 +286,22 @@
 		)
 	)
 )
+
+
+
+(instance bulldog of Actor
+	(properties
+		view 361
+		loop 1
+		x 156
+		y 142
+;;;		x 66
+;;;		y 136
+		signal ignAct
+		noun N_BULLDOG
+	)
+)
+
 
 
 

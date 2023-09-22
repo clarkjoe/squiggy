@@ -223,8 +223,9 @@
 
 (instance bone of InventoryItem
     (properties
-        view 900        ; This is our box view, we'll re-use it
-        loop 0
+        view 901
+        loop 1
+        cursor 901
         signal $0002
         noun N_BONE
     )
