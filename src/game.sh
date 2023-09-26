@@ -91,12 +91,18 @@
 
 (define AXE_VIEW 900)
 
-(define BONE_VIEW 901)
+(define BONE_VIEW 903)
 
 ; inventory items
 (define INV_HEN 0)
 (define INV_BONE 1)
 (define INV_AXE 2)
+
+; flags
+(enum
+    F_ThrownBone
+    ; You can add more here later...
+)
 
 ; helpful constants
 (define STILL_LOOP 8)

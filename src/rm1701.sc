@@ -45,11 +45,12 @@
 				(gEgo posn: 204 121 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
 			(else
-				(self setScript: bulldogEngagesRosella)
+				(if (not (Btest F_ThrownBone))
+					(self setScript: bulldogEngagesRosella)
+				)
 				(gEgo posn: 44 145)
 			)
 		)
-		(bulldog init: ignoreActors: FALSE setCycle: Forward)
 		(gEgo init: setScale: Scaler 85 85 150 120)
 		(gEgo get: INV_BONE)
 		(gGame handsOn:)
@@ -154,41 +155,6 @@
 	)
 )
 
-(instance ogre of Actor
-	(properties
-		view OGRE_SLEEPING_VIEW
-		x 242
-		y 170
-		signal ignAct
-		noun N_OGRE
-	)
-)
-
-(instance hen of Actor
-	(properties
-		view HEN_VIEW
-		signal ignAct
-		loop 0
-		cel 0
-		noun N_HEN
-	)
-	
-	(method (doVerb theVerb)
-	    (switch theVerb
-	        (V_DO
-				(if (<= (self distanceTo: gEgo) 15)
-					(rm1701 setScript: getHen)
-				else
-					(gMessager say: N_ROOM 0 C_NOT_CLOSE_HEN 0)
-				)
-	        )
-	        (else
-	            (super doVerb: theVerb &rest)
-	        )
-	    )
-	)
-)
-
 (instance rosellaThrowsBone of Script
 	(properties)
 	
@@ -202,7 +168,7 @@
 				(self cue:)
 			)
 			(
-				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setSpeed: 10 setMotion: JumpTo (- (bulldog x?) 20) (- (bulldog y?) 15) self)
+				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setLoop: 2 setCycle: Forward setSpeed: 10 setMotion: JumpTo (- (bulldog x?) 20) (- (bulldog y?) 15) self)
 				(bulldog setCycle: StopWalk -1)
 			)
 			(
@@ -223,6 +189,7 @@
 			(
 				(bulldog view: BULLDOG_CHEW_VIEW setCycle: Forward)
 				(gGame handsOn:)
+				(Bset F_ThrownBone)
 				(rm1701 setScript: RoomScript)
 			)
 		)
@@ -234,9 +201,14 @@
 	
 	(method (changeState newState)
 		(= state newState)
+		(DebugPrint {state: %d} state)
 		(switchto state
 			(
-				(bulldog view: BULLDOG_BARK_VIEW setLoop: 1 setCycle: Forward)
+				(bulldog init: setDirection: LEFT setMotion: NULL -1 ignoreActors: FALSE setCycle: Forward)
+				(self cue:)
+			)
+			(
+				(bulldog setLoop: 1 setCycle: Forward)
 				(= seconds 5)
 			)
 			(
@@ -352,7 +324,7 @@
 
 (instance bulldog of Actor
 	(properties
-		view BULLDOG_RUN_VIEW
+		view BULLDOG_BARK_VIEW
 		x 163
 		y 143
 		signal ignAct
@@ -370,6 +342,42 @@
 		)
 	)
 )
+
+(instance ogre of Actor
+	(properties
+		view OGRE_SLEEPING_VIEW
+		x 242
+		y 170
+		signal ignAct
+		noun N_OGRE
+	)
+)
+
+(instance hen of Actor
+	(properties
+		view HEN_VIEW
+		signal ignAct
+		loop 0
+		cel 0
+		noun N_HEN
+	)
+	
+	(method (doVerb theVerb)
+	    (switch theVerb
+	        (V_DO
+				(if (<= (self distanceTo: gEgo) 15)
+					(rm1701 setScript: getHen)
+				else
+					(gMessager say: N_ROOM 0 C_NOT_CLOSE_HEN 0)
+				)
+	        )
+	        (else
+	            (super doVerb: theVerb &rest)
+	        )
+	    )
+	)
+)
+
 
 (instance bone of Actor
 	(properties
