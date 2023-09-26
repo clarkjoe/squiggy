@@ -32,7 +32,6 @@
 		(gRoom addObstacle: (&getpoly {globe}))
 		(super init:)
 		(SetUpEgo -1 0)
-;;;		(= gKeyholePic CABIN_KEYHOLE_PIC_SLEEP)
 		(switch gPreviousRoomNumber
 			(CABIN_KITCHEN_SCRIPT
 				(self setScript: RoomScript)
@@ -198,6 +197,11 @@
 		(DebugPrint {state: %d} state)
 		(switchto state
 			(
+				(bulldog setMotion: NULL)
+				(gGame handsOff:)
+				(self cue:)
+			)
+			(
 				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setSpeed: 10 setMotion: JumpTo (- (bulldog x?) 20) (- (bulldog y?) 15) self)
 				(bulldog setCycle: StopWalk -1)
 			)
@@ -207,13 +211,18 @@
 				(self cue:)
 			)
 			(
-				(bulldog view: BULLDOG_CATCH_BONE_VIEW setCycle: EndLoop self)
+				(bulldog view: BULLDOG_CATCH_BONE_VIEW setLoop: 1)
+				(self cue:)
 			)
 			(
-				(bulldog view: BULLDOG_WALK_BONE_VIEW setLoop: 1 setCycle: StopWalk -1 setMotion: MoveTo 67 135 self)
+				(bulldog setCycle: EndLoop self)
+			)
+			(
+				(bulldog view: BULLDOG_WALK_BONE_VIEW setCycle: StopWalk -1 setMotion: MoveTo 67 135 self)
 			)
 			(
 				(bulldog view: BULLDOG_CHEW_VIEW setCycle: Forward)
+				(gGame handsOn:)
 				(rm1701 setScript: RoomScript)
 			)
 		)
