@@ -51,6 +51,7 @@
 				(gEgo posn: 44 145)
 			)
 		)
+		(stairway setOnMeCheck: omcCOLORS ctlTEAL init:)
 		(gEgo init: setScale: Scaler 85 85 150 120)
 		(gEgo get: INV_BONE)
 		(gGame handsOn:)
@@ -386,6 +387,12 @@
 		noun N_BONE
 		signal ignAct
 		priority -1
+	)
+)
+
+(instance stairway of Feature
+	(properties
+		noun N_STAIRWAY
 	)
 )
 

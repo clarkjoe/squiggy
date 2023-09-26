@@ -2,11 +2,6 @@
 ;;; 1701.shm -- Produced by SCI Companion
 ;;; This file should only be edited with the SCI Companion message editor
 
-;;; CASES
-
-(define C_NOT_CLOSE_HEN 1)
-(define C_OGRE_EAT 2)
-
 ;;; NOUNS
 
 (define N_ROOM 1)
@@ -14,4 +9,20 @@
 (define N_HEN 3)
 (define N_BULLDOG 4)
 (define N_BONE 5)
+(define N_CHAIR 6)
+(define N_FLOOR 7)
+(define N_FRONT_DOOR 8)
+(define N_RUG 9)
+(define N_OGRESS 10)
+(define N_STAIRWAY 11)
+(define N_TABLE 12)
+(define N_WINDOW 13)
+
+;;; CASES
+
+(define C_NOT_CLOSE_HEN 1)
+(define C_OGRE_EAT 2)
+(define C_BULLDOG_EAT_BONE 3)
+(define C_BULLDOG_RUN 4)
+(define C_OGRE_SLEEP 5)
 

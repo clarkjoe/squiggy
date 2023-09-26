@@ -38,6 +38,7 @@
 		)
 		(window setOnMeCheck: omcCOLORS ctlPURPLE init:)
 		(shelf setOnMeCheck: omcCOLORS ctlNAVY init:)
+		(bed setOnMeCheck: omcCOLORS ctlTEAL init:)
 	)
 )
 
@@ -145,5 +146,11 @@
 (instance shelf of Feature
 	(properties
 		noun N_SHELF
+	)
+)
+
+(instance bed of Feature
+	(properties
+		noun N_BED
 	)
 )
