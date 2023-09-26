@@ -54,11 +54,9 @@
 		)
 		(self
 			; Add inventory items here.
-			; add: Money AThing AnotherThing
 			add: hen
 			add: bone
 			add: axe
-			add: cabinKey
 			eachElementDo: #lowlightColor 2
 			add: invLook invSelect invHelp invUp invDown ok
 		)
@@ -214,8 +212,9 @@
 
 (instance hen of InventoryItem
     (properties
-        view 900        ; This is our box view, we'll re-use it
-        loop 0
+        view HEN_VIEW
+        cursor HEN_VIEW
+        loop INVENTORY_ITEM_PURSE_LOOP
         signal $0002
         noun N_HEN
     )
@@ -223,28 +222,21 @@
 
 (instance bone of InventoryItem
     (properties
-        view 901
-        loop 1
-        cursor 901
+        view BONE_VIEW
+        cursor BONE_VIEW
+        loop INVENTORY_ITEM_PURSE_LOOP
         signal $0002
         noun N_BONE
+        message V_BONE
     )
 )
 
 (instance axe of InventoryItem
     (properties
-        view 900        ; This is our box view, we'll re-use it
-        loop 0
+        view AXE_VIEW
+        cursor AXE_VIEW
+		loop INVENTORY_ITEM_PURSE_LOOP
         signal $0002
         noun N_AXE
-    )
-)
-
-(instance cabinKey of InventoryItem
-    (properties
-        view 900        ; This is our box view, we'll re-use it
-        loop 0
-        signal $0002
-        noun N_CABIN_KEY
     )
 )

@@ -13,4 +13,5 @@
 (define N_OGRE 2)
 (define N_HEN 3)
 (define N_BULLDOG 4)
+(define N_BONE 5)
 

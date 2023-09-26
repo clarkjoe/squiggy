@@ -14,6 +14,8 @@
 (use Scaler)
 (use StopWalk)
 (use PolyPath)
+(use Chase)
+(use Jump)
 
 (public
 	rm1701 0
@@ -44,7 +46,7 @@
 				(gEgo posn: 204 121 loop: STILL_LOOP cel: STILL_DOWN_CEL)
 			)
 			(else
-				(self setScript: RoomScript)
+				(self setScript: bulldogEngagesRosella)
 				(gEgo posn: 44 145)
 			)
 		)
@@ -188,6 +190,56 @@
 	)
 )
 
+(instance rosellaThrowsBone of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
+		(DebugPrint {state: %d} state)
+		(switchto state
+			(
+				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setSpeed: 10 setMotion: JumpTo (- (bulldog x?) 20) (- (bulldog y?) 15) self)
+				(bulldog setCycle: StopWalk -1)
+			)
+			(
+				(bone dispose:)
+				(gEgo put: INV_BONE)
+				(self cue:)
+			)
+			(
+				(bulldog view: BULLDOG_CATCH_BONE_VIEW setCycle: EndLoop self)
+			)
+			(
+				(bulldog view: BULLDOG_WALK_BONE_VIEW setLoop: 1 setCycle: StopWalk -1 setMotion: MoveTo 67 135 self)
+			)
+			(
+				(bulldog view: BULLDOG_CHEW_VIEW setCycle: Forward)
+				(rm1701 setScript: RoomScript)
+			)
+		)
+	)
+)
+
+(instance bulldogEngagesRosella of Script
+	(properties)
+	
+	(method (changeState newState)
+		(= state newState)
+		(switchto state
+			(
+				(bulldog view: BULLDOG_BARK_VIEW setLoop: 1 setCycle: Forward)
+				(= seconds 5)
+			)
+			(
+				(bulldog view: BULLDOG_RUN_VIEW setCycle: StopWalk -1 setMotion: Chase gEgo 25 self)
+			)
+			(
+				(gEgo dispose:)
+			)
+		)
+	)
+)
+
 (instance getHen of Script
 	(properties)
 	
@@ -291,14 +343,32 @@
 
 (instance bulldog of Actor
 	(properties
-		view 361
-		loop 1
-		x 156
-		y 142
-;;;		x 66
-;;;		y 136
+		view BULLDOG_RUN_VIEW
+		x 163
+		y 143
 		signal ignAct
 		noun N_BULLDOG
+	)
+
+	(method (doVerb theVerb)
+		(switch theVerb
+			(V_BONE
+				(rm1701 setScript: rosellaThrowsBone)
+			)
+			(else 
+				(super doVerb: theVerb &rest)
+			)
+		)
+	)
+)
+
+(instance bone of Actor
+	(properties
+		view BONE_VIEW
+		loop INVENTORY_ITEM_GAME_LOOP
+		noun N_BONE
+		signal ignAct
+		priority -1
 	)
 )
 

@@ -80,13 +80,23 @@
 (define OGRE_EAT_ROSELLA_VIEW_E 326)
 (define OGRE_EAT_ROSELLA_VIEW_F 327)
 
+(define BULLDOG_RUN_VIEW 360)
+(define BULLDOG_BARK_VIEW 361)
+(define BULLDOG_CATCH_BONE_VIEW 362)
+(define BULLDOG_WALK_BONE_VIEW 363)
+(define BULLDOG_CHEW_VIEW 364)
+(define BULLDOG_EAT_ROSELLA 365)
+
 (define HEN_VIEW 470)
+
+(define AXE_VIEW 900)
+
+(define BONE_VIEW 901)
 
 ; inventory items
 (define INV_HEN 0)
 (define INV_BONE 1)
 (define INV_AXE 2)
-(define INV_CABIN_KEY 3)
 
 ; helpful constants
 (define STILL_LOOP 8)
@@ -94,4 +104,6 @@
 (define STILL_UP_CEL 3)
 (define STILL_RIGHT_CEL 0)
 (define STILL_LEFT_CEL 1)
-
+(define INVENTORY_ITEM_CURSOR_LOOP 0)
+(define INVENTORY_ITEM_PURSE_LOOP 1)
+(define INVENTORY_ITEM_GAME_LOOP 2)
