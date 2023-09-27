@@ -46,7 +46,7 @@
 			)
 			(else
 				(if (not (Btest F_ThrownBone))
-					(self setScript: bulldogEngagesRosella)
+					(self setScript: dogEngagesRosella)
 				)
 				(gEgo posn: 44 145)
 			)
@@ -164,13 +164,13 @@
 		(DebugPrint {state: %d} state)
 		(switchto state
 			(
-				(bulldog setMotion: NULL)
+				(dog setMotion: NULL)
 				(gGame handsOff:)
 				(self cue:)
 			)
 			(
-				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setLoop: 2 setCycle: Forward setSpeed: 10 setMotion: JumpTo (- (bulldog x?) 20) (- (bulldog y?) 15) self)
-				(bulldog setCycle: StopWalk -1)
+				(bone posn: (+ (gEgo x?) 15) (- (gEgo y?) 25) init: setLoop: 2 setCycle: Forward setSpeed: 10 setMotion: JumpTo (- (dog x?) 20) (- (dog y?) 15) self)
+				(dog setCycle: StopWalk -1)
 			)
 			(
 				(bone dispose:)
@@ -178,17 +178,17 @@
 				(self cue:)
 			)
 			(
-				(bulldog view: BULLDOG_CATCH_BONE_VIEW setLoop: 1)
+				(dog view: DOG_CATCH_BONE_VIEW setLoop: 1)
 				(self cue:)
 			)
 			(
-				(bulldog setCycle: EndLoop self)
+				(dog setCycle: EndLoop self)
 			)
 			(
-				(bulldog view: BULLDOG_WALK_BONE_VIEW setCycle: StopWalk -1 setMotion: MoveTo 67 135 self)
+				(dog view: DOG_WALK_BONE_VIEW setCycle: StopWalk -1 setMotion: PolyPath 67 135 self)
 			)
 			(
-				(bulldog view: BULLDOG_CHEW_VIEW setCycle: Forward)
+				(dog view: DOG_CHEW_VIEW setCycle: Forward)
 				(gGame handsOn:)
 				(Bset F_ThrownBone)
 				(rm1701 setScript: RoomScript)
@@ -197,7 +197,7 @@
 	)
 )
 
-(instance bulldogEngagesRosella of Script
+(instance dogEngagesRosella of Script
 	(properties)
 	
 	(method (changeState newState)
@@ -205,17 +205,18 @@
 		(DebugPrint {state: %d} state)
 		(switchto state
 			(
-				(bulldog init: setDirection: LEFT setMotion: NULL -1 ignoreActors: FALSE setCycle: Forward)
+				(dog init: setDirection: LEFT setMotion: NULL -1 ignoreActors: FALSE setCycle: Forward)
 				(self cue:)
 			)
 			(
-				(bulldog setLoop: 1 setCycle: Forward)
+				(dog setLoop: 1 setCycle: Forward)
 				(= seconds 5)
 			)
 			(
-				(bulldog view: BULLDOG_RUN_VIEW setCycle: StopWalk -1 setMotion: Chase gEgo 25 self)
+				(dog view: DOG_RUN_VIEW setCycle: StopWalk -1 setMotion: Chase gEgo 25 self)
 			)
 			(
+				(gGame handsOff:)
 				(gEgo dispose:)
 			)
 		)
@@ -323,13 +324,13 @@
 
 
 
-(instance bulldog of Actor
+(instance dog of Actor
 	(properties
-		view BULLDOG_BARK_VIEW
+		view DOG_BARK_VIEW
 		x 163
 		y 143
 		signal ignAct
-		noun N_BULLDOG
+		noun N_DOG
 	)
 
 	(method (doVerb theVerb)

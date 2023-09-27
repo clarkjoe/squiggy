@@ -7,7 +7,7 @@
 (define N_ROOM 1)
 (define N_OGRE 2)
 (define N_HEN 3)
-(define N_BULLDOG 4)
+(define N_DOG 4)
 (define N_BONE 5)
 (define N_CHAIR 6)
 (define N_FLOOR 7)
@@ -22,7 +22,7 @@
 
 (define C_NOT_CLOSE_HEN 1)
 (define C_OGRE_EAT 2)
-(define C_BULLDOG_EAT_BONE 3)
-(define C_BULLDOG_RUN 4)
+(define C_DOG_EAT_BONE 3)
+(define C_DOG_RUN 4)
 (define C_OGRE_SLEEP 5)
 
