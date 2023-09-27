@@ -53,7 +53,7 @@
 		)
 		(stairway setOnMeCheck: omcCOLORS ctlTEAL init:)
 		(gEgo init: setScale: Scaler 85 85 150 120)
-		(gEgo get: INV_BONE)
+;;;		(gEgo get: INV_BONE)
 		(gGame handsOn:)
 	)
 )

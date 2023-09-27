@@ -55,6 +55,9 @@
 
 ;;;;; Game specific definitions
 ; room script numbers
+
+(define CABIN_FRONT_SCRIPT 1214)
+
 (define CABIN_ENTRANCE_SCRIPT 1701)
 (define CABIN_KITCHEN_SCRIPT 1702)
 (define CABIN_BEDROOM_SCRIPT 1703)
