@@ -51,7 +51,17 @@
 				(gEgo posn: 44 145)
 			)
 		)
+		(chair setOnMeCheck: omcCOLORS ctlMAROON init:)
+		(floor setOnMeCheck: omcCOLORS ctlGREY init:)
+		(front_door setOnMeCheck: omcCOLORS ctlPURPLE init:)
+		(rug setOnMeCheck: omcCOLORS ctlBROWN init:)
 		(stairway setOnMeCheck: omcCOLORS ctlTEAL init:)
+;;;		(stairway setOnMeCheck: omcCOLORS ctlNAVY init:)
+;;;		(stairway setOnMeCheck: omcCOLORS ctlCYAN init:)
+		(table setOnMeCheck: omcCOLORS ctlSILVER init:)
+		(table setOnMeCheck: omcCOLORS ctlFUCHSIA init:)
+		(window setOnMeCheck: omcCOLORS ctlBLUE init:)
+		
 		(gEgo init: setScale: Scaler 85 85 150 120)
 ;;;		(gEgo get: INV_BONE)
 		(gGame handsOn:)
@@ -391,9 +401,45 @@
 	)
 )
 
+(instance chair of Feature
+	(properties
+		noun N_CHAIR
+	)
+)
+
+(instance floor of Feature
+	(properties
+		noun N_FLOOR
+	)
+)
+
+(instance front_door of Feature
+	(properties
+		noun N_FRONT_DOOR
+	)
+)
+
+(instance rug of Feature
+	(properties
+		noun N_RUG
+	)
+)
+
 (instance stairway of Feature
 	(properties
 		noun N_STAIRWAY
+	)
+)
+
+(instance table of Feature
+	(properties
+		noun N_TABLE
+	)
+)
+
+(instance window of Feature
+	(properties
+		noun N_WINDOW
 	)
 )
 

@@ -36,9 +36,13 @@
 				(self setScript: entrance)
 			)
 		)
-		(window setOnMeCheck: omcCOLORS ctlPURPLE init:)
-		(shelf setOnMeCheck: omcCOLORS ctlNAVY init:)
 		(bed setOnMeCheck: omcCOLORS ctlTEAL init:)
+		(closet setOnMeCheck: omcCOLORS ctlMAROON init:)
+		(floor setOnMeCheck: omcCOLORS ctlBROWN init:)
+		(railing setOnMeCheck: omcCOLORS ctlGREEN init:)
+		(railing setOnMeCheck: omcCOLORS ctlLIME init:)
+		(shelf setOnMeCheck: omcCOLORS ctlNAVY init:)
+		(window setOnMeCheck: omcCOLORS ctlPURPLE init:)
 	)
 )
 
@@ -137,9 +141,27 @@
 	)
 )
 
-(instance window of Feature
+(instance bed of Feature
 	(properties
-		noun N_WINDOW
+		noun N_BED
+	)
+)
+
+(instance closet of Feature
+	(properties
+		noun N_CLOSET
+	)
+)
+
+(instance floor of Feature
+	(properties
+		noun N_FLOOR
+	)
+)
+
+(instance railing of Feature
+	(properties
+		noun N_RAILING
 	)
 )
 
@@ -149,8 +171,9 @@
 	)
 )
 
-(instance bed of Feature
+(instance window of Feature
 	(properties
-		noun N_BED
+		noun N_WINDOW
 	)
 )
+
