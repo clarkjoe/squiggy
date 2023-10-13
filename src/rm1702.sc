@@ -16,6 +16,7 @@
 (use StopWalk)
 (use PolyPath)
 (use PChase)
+(use DPath)
 
 (public
 	rm1702 0
@@ -30,15 +31,16 @@
 	(method (init)
 		(gRoom addObstacle: (&getpoly {contained}))
 		(super init:)
-		(self setScript: RoomScript)
+;;;		(self setScript: ogressPaces)
 		(SetUpEgo -1 0)
 		(switch gPreviousRoomNumber
 			(else
 				(gEgo posn: 67 154 setHeading: 90)
 			)
 		)
-		(gEgo init: setScale: Scaler 100 100 0 1)
-		(ogress init: setScale: Scaler 225 225 0 1 setCycle: StopWalk -1)
+		(gEgo init: setScale: Scaler 75 75 0 1)
+		(ogress init:)
+		(knife init: hide:)
 	)
 )
 
@@ -49,41 +51,76 @@
 		(super doit:)
 		
 		(= egoOnControl (gEgo onControl:))
+		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
+	)
+)
+
+(instance ogressPaces of Script
+	(properties)
+	
+	(method (doit &tmp egoOnControl)
+		(super doit:)
+		
+		(DebugPrint {ogressPaces})
+		
+		(= egoOnControl (gEgo onControl:))
 		
 		(if (and
 				(or
-					(== (self state:) 1)
-					(== (self state:) 3)
+					(== (self state:) 4)
+					(== (self state:) 8)
 				)
 				(== (& ctlNAVY egoOnControl) FALSE)
 			)
 			
-			(rm1702 setScript: ogressGrabsRosella)
+			(ogress setScript: ogressGrabsRosella self)
+			(self dispose:)
 		)
-		
-		(if (& ctlLIME egoOnControl) (gRoom newRoom: CABIN_ENTRANCE_SCRIPT))
 	)
 	
 	(method (changeState newState)
 		(= state newState)
-		(switch state
-			(0
-				(= seconds 6)
-			)
-			(1
-				(ogress setMotion: PolyPath 159 124 self)
-			)
-			(2
+		(switchto state
+			(
+				(ogress view: OGRESS_COOK_VIEW setLoop: OGRESS_KNEAD_LOOP setCycle: Forward)
 				(= seconds 3)
 			)
-			(3
-				(ogress setMotion: PolyPath 185 152 self)
+			(
+				(ogress setLoop: OGRESS_CHOP_LOOP setCycle: EndLoop self)
 			)
-			(4
-				(ogress setHeading: 90)
+			(
+				(= seconds 1)
+			)
+			(
+				(knife show:)
+				(ogress view: OGRESS_VIEW setCycle: StopWalk -1 setLoop: LEFT_LOOP)
 				(self cue:)
 			)
-			(5
+			(
+				(ogress setMotion: PolyPath 159 144 self)
+			)
+			(
+				(ogress setMotion: PolyPath 159 124 self)
+			)
+			(
+				(ogress view: OGRESS_COOK_VIEW setLoop: OGRESS_STIR_LOOP setCycle: Forward)
+				(= seconds 5)
+			)
+			(
+				(ogress view: OGRESS_VIEW setCycle: StopWalk -1 setLoop: DOWN_LOOP)
+				(self cue:)
+			)
+			(
+				(ogress setMotion: PolyPath 159 144 self)
+			)
+			(
+				(ogress setMotion: PolyPath 197 144 self)
+			)
+			(
+				(knife hide:)
+				(self cue:)
+			)
+			(
 				(self changeState: 0)
 			)
 		)
@@ -93,17 +130,43 @@
 (instance ogressGrabsRosella of Script
 	(properties)
 	
+	(method (doit &tmp egoOnControl)
+		(super doit:)
+		
+;;;		(DebugPrint {ogressGrabsRosella})
+	)
+	
 	(method (changeState newState)
 		(= state newState)
-		(switch state
-			(0
+		(DebugPrint {state: %d} state)
+		(switchto state
+			(
+				(gMessager say: N_ROOM 0 C_OGRESS_SEE 0)
+				(self cue:)
+			)
+			(
 				(gGame handsOff:)
 				(self cue:)
 			)
-			(1
-				(ogress setMotion: PChase gEgo 50 self)
+			(
+				(ogress setMotion: PChase gEgo 30 self)
 			)
-			(2
+			(
+				(gEgo dispose:)
+				(ogress view: OGRESS_CATCH_ROSELLA_VIEW)
+				(if (< (gEgo x?) (ogress x?))
+					
+					(ogress setLoop: 0)
+				else
+					(ogress setLoop: 1)
+				)
+				
+				(ogress setCel: 0 setCycle: EndLoop self)
+			)
+			(
+				(ogress view: OGRESS_CARRY_ROSELLA_VIEW setCycle: Walk setMotion: PolyPath 197 144 self)
+			)
+			(
 				(DebugPrint {DEATH})
 			)
 		)
@@ -112,10 +175,29 @@
 
 (instance ogress of Actor
 	(properties
-		view GENESTA_VIEW
-		x 185
-		y 152
+		view OGRESS_VIEW
+		x 197
+		y 144
 		signal ignAct
 		noun N_OGRESS
+	)
+	
+	(method (init)
+		(super init: &rest)
+		(self 
+			setStep: 8 4
+			setSpeed: 10
+			setScale: Scaler 80 80 0 1
+			setScript: ogressPaces
+		)
+	)
+)
+
+(instance knife of Prop
+	(properties
+		view OGRESS_KNIFE_VIEW
+		x 190
+		y 161
+		priority 15
 	)
 )
