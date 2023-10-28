@@ -132,39 +132,49 @@
 	
 	(method (doit &tmp egoOnControl)
 		(super doit:)
-		
-;;;		(DebugPrint {ogressGrabsRosella})
 	)
 	
 	(method (changeState newState)
 		(= state newState)
-		(DebugPrint {state: %d} state)
 		(switchto state
 			(
 				(gMessager say: N_ROOM 0 C_OGRESS_SEE 0)
 				(self cue:)
 			)
 			(
-				(gGame handsOff:)
-				(self cue:)
+				(ogress setSpeed: 4)
+				(ogress setMotion: PChase gEgo 30 self)
 			)
 			(
-				(ogress setMotion: PChase gEgo 30 self)
+				(gGame handsOff:)
+				(ogress setSpeed: 10)
+				(self cue:)
 			)
 			(
 				(gEgo dispose:)
 				(ogress view: OGRESS_CATCH_ROSELLA_VIEW)
 				(if (< (gEgo x?) (ogress x?))
-					
 					(ogress setLoop: 0)
 				else
 					(ogress setLoop: 1)
 				)
 				
-				(ogress setCel: 0 setCycle: EndLoop self)
+				(ogress x: (gEgo x?) y: (gEgo y?) setCel: 0 setCycle: EndLoop self)
 			)
 			(
-				(ogress view: OGRESS_CARRY_ROSELLA_VIEW setCycle: Walk setMotion: PolyPath 197 144 self)
+				(ogress view: OGRESS_CARRY_ROSELLA_VIEW setCycle: Walk setMotion: PolyPath 197 153 self)
+			)
+			(
+				(ogress view: OGRESS_PREP_PIE_A_VIEW setCycle: EndLoop self)
+			)
+			(
+				(ogress view: OGRESS_PREP_PIE_B_VIEW setCycle: EndLoop self)
+			)
+			(
+				(ogress view: OGRESS_CARRY_PIE_VIEW setCycle: Walk setMotion: PolyPath 159 124 self)
+			)
+			(
+				(ogress view: OGRESS_COOK_PIE_VIEW setCycle: EndLoop self)
 			)
 			(
 				(DebugPrint {DEATH})
@@ -196,8 +206,9 @@
 (instance knife of Prop
 	(properties
 		view OGRESS_KNIFE_VIEW
-		x 190
-		y 161
-		priority 15
+		x 221
+		y 88
+		signal ignAct
+		noun N_KNIFE
 	)
 )

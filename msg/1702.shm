@@ -10,4 +10,5 @@
 
 (define N_ROOM 1)
 (define N_OGRESS 2)
+(define N_KNIFE 3)
 

@@ -30,6 +30,7 @@
 	(method (init)
 		(gRoom addObstacle: (&getpoly {}))
 		(super init:)
+		(SetUpEgo -1 0)
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
 			(else
