@@ -61,8 +61,6 @@
 	(method (doit &tmp egoOnControl)
 		(super doit:)
 		
-		(DebugPrint {ogressPaces})
-		
 		(= egoOnControl (gEgo onControl:))
 		
 		(if (and
@@ -147,7 +145,7 @@
 			)
 			(
 				(gGame handsOff:)
-				(ogress setSpeed: 10)
+				(ogress setSpeed: 7)
 				(self cue:)
 			)
 			(
@@ -196,7 +194,7 @@
 		(super init: &rest)
 		(self 
 			setStep: 8 4
-			setSpeed: 10
+			setSpeed: 7
 			setScale: Scaler 80 80 0 1
 			setScript: ogressPaces
 		)

@@ -193,6 +193,7 @@
 	; 	:param heapPtr theCaller: Optional object on which we call cue() when the cycle is finished.
 	;
 	(method (init theClient theCaller)
+		(theClient setCel: 0)
 		(super
 			init:
 				theClient
