@@ -20,10 +20,6 @@
 (instance rm1214 of Room
 	(properties
 		picture scriptNumber
-		north 0
-		east 0
-		south 0
-		west 0
 		noun N_ROOM
 	)
 	
@@ -34,7 +30,7 @@
 		(self setScript: RoomScript)
 		(switch gPreviousRoomNumber
 			(else
-				(SetUpEgo -1 0)
+				(gGame handsOn:)
 				(gEgo posn: 100 181)
 			)
 		)
@@ -106,7 +102,7 @@
 	)
 )
 
-(instance bone of Actor
+(instance bone of Prop
 	(properties
 		view BONE_VIEW
 		loop INVENTORY_ITEM_GAME_LOOP
@@ -115,7 +111,6 @@
 		y 177
 		approachX 86
 		approachY 178
-		signal ignAct
 		priority -1
 	)
 	
