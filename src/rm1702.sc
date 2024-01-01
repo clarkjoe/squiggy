@@ -81,7 +81,7 @@
 		(switchto state
 			(
 				(ogress view: OGRESS_COOK_VIEW setLoop: OGRESS_KNEAD_LOOP setCycle: Forward)
-				(= seconds 3)
+				(= seconds 10)
 			)
 			(
 				(ogress setLoop: OGRESS_CHOP_LOOP setCycle: EndLoop self)
@@ -102,7 +102,7 @@
 			)
 			(
 				(ogress view: OGRESS_COOK_VIEW setLoop: OGRESS_STIR_LOOP setCycle: Forward)
-				(= seconds 5)
+				(= seconds 10)
 			)
 			(
 				(ogress view: OGRESS_VIEW setCycle: StopWalk -1 setLoop: DOWN_LOOP)
